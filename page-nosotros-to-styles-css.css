@@ -1,0 +1,217 @@
+/*
+ * ═══════════════════════════════════════════════════════════════════
+ * HUMAN PERÚ — CSS de page-nosotros.php
+ * ═══════════════════════════════════════════════════════════════════
+ *
+ * INSTRUCCIONES: Pegar en style.css dentro de la sección
+ * "9. SECCIONES ESPECÍFICAS". Los @media se integran en las
+ * media queries existentes.
+ *
+ * Componentes:
+ *   - .identity-grid / .identity-card  → Visión, Misión, Historia
+ *   - .equipo-card (actualización)     → Fotos circulares + avatar fallback
+ */
+
+
+/* ══════════════════════════════════════════════════════════════════
+   IDENTITY CARDS — Visión, Misión, Historia
+   ══════════════════════════════════════════════════════════════════ */
+
+.identity-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+.identity-card {
+    background-color: #ffffff;
+    border-radius: var(--card-radius);
+    padding: 32px 24px;
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.identity-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Ícono circular de color */
+.identity-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+}
+
+.identity-card__icon--blue {
+    background-color: rgba(43, 95, 138, 0.1);
+    color: var(--hp-blue);
+}
+
+.identity-card__icon--orange {
+    background-color: rgba(232, 131, 58, 0.1);
+    color: var(--hp-orange);
+}
+
+.identity-card__icon--yellow {
+    background-color: rgba(245, 183, 49, 0.12);
+    color: #c99520;
+}
+
+.identity-card__label {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--hp-blue);
+    margin-bottom: 12px;
+}
+
+.identity-card__text {
+    font-size: 15px;
+    color: var(--text-medium);
+    line-height: 1.7;
+    margin: 0;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   EQUIPO CARD — Foto circular + avatar fallback
+   ══════════════════════════════════════════════════════════════════
+   Amplía los estilos base de .equipo-card en style.css.
+   Agrega el wrapper de foto y el avatar con iniciales.
+   ══════════════════════════════════════════════════════════════════ */
+
+.equipo-card {
+    text-align: center;
+    padding: 32px 20px;
+}
+
+/* Wrapper que contiene la foto real + el avatar fallback */
+.equipo-card__foto-wrapper {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 20px;
+    position: relative;
+}
+
+.equipo-card__foto {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--hp-cream);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Avatar placeholder con iniciales (visible cuando la foto falla) */
+.equipo-card__avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--hp-blue), var(--hp-dark-blue));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid var(--hp-cream);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.equipo-card__avatar span {
+    font-family: var(--font-heading);
+    font-size: 36px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 2px;
+}
+
+.equipo-card__nombre {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--hp-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    line-height: 1.3;
+}
+
+.equipo-card__cargo {
+    font-size: 14px;
+    color: var(--text-medium);
+    margin: 0;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   RESPONSIVE — TABLET (768px+)
+   ══════════════════════════════════════════════════════════════════ */
+
+@media (min-width: 768px) {
+
+    .identity-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+    }
+
+    .identity-card {
+        padding: 36px 28px;
+    }
+
+    .identity-card__label {
+        font-size: 22px;
+    }
+
+    .identity-card__text {
+        font-size: 15px;
+    }
+
+    /* Equipo: 2 columnas (ya definido en style.css base) */
+    .equipo-card__foto-wrapper,
+    .equipo-card__foto,
+    .equipo-card__avatar {
+        width: 150px;
+        height: 150px;
+    }
+
+    .equipo-card__nombre {
+        font-size: 17px;
+    }
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   RESPONSIVE — DESKTOP (1024px+)
+   ══════════════════════════════════════════════════════════════════ */
+
+@media (min-width: 1024px) {
+
+    .identity-card {
+        padding: 40px 32px;
+    }
+
+    .identity-card__icon {
+        width: 80px;
+        height: 80px;
+    }
+
+    .identity-card__text {
+        font-size: 16px;
+    }
+
+    /* Equipo: 4 columnas (ya definido en style.css base) */
+    .equipo-card__foto-wrapper,
+    .equipo-card__foto,
+    .equipo-card__avatar {
+        width: 160px;
+        height: 160px;
+    }
+
+    .equipo-card__avatar span {
+        font-size: 40px;
+    }
+}

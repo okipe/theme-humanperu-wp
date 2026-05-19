@@ -1,0 +1,402 @@
+/*
+ * ═══════════════════════════════════════════════════════════════════
+ * HUMAN PERÚ — CSS de page-contacto.php
+ * ═══════════════════════════════════════════════════════════════════
+ *
+ * INSTRUCCIONES: Pegar en style.css dentro de la sección
+ * "14. PÁGINAS ESPECIALES", o justo después. Los @media se
+ * integran en las media queries existentes.
+ *
+ * Componentes:
+ *   - .contacto-hero       → Hero compacto centrado
+ *   - .contacto-grid       → 2 columnas (form + sidebar)
+ *   - .contacto-form       → Formulario con validación visual
+ *   - .contacto-dato       → Tarjetas de datos de contacto
+ *   - .contacto-mapa       → Contenedor del iframe de Google Maps
+ */
+
+
+/* ══════════════════════════════════════════════════════════════════
+   CONTACTO HERO — Encabezado centrado (sin imagen)
+   ══════════════════════════════════════════════════════════════════ */
+
+.contacto-hero {
+    padding: 40px 0 24px;
+    text-align: center;
+}
+
+.contacto-hero__content {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.contacto-hero__title {
+    font-family: var(--font-heading);
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--hp-blue);
+    line-height: 1.2;
+    margin-bottom: 16px;
+}
+
+.contacto-hero__title .highlight {
+    color: var(--hp-orange);
+}
+
+.contacto-hero__description {
+    font-size: 16px;
+    color: var(--text-medium);
+    line-height: 1.7;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   CONTACTO GRID — 1 columna en móvil, 2 en desktop
+   ══════════════════════════════════════════════════════════════════ */
+
+.contacto-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   FORMULARIO DE CONTACTO
+   ══════════════════════════════════════════════════════════════════ */
+
+.contacto-form-wrapper {
+    background-color: #ffffff;
+    border-radius: var(--card-radius);
+    padding: 32px 24px;
+    box-shadow: var(--shadow-md);
+}
+
+/* ── Campo individual ────────────────────────────────────────── */
+
+.contacto-form__field {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.contacto-form__label {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+}
+
+.contacto-form__required {
+    color: var(--hp-orange);
+}
+
+/* Estilos compartidos por input, select y textarea */
+.contacto-form__input,
+.contacto-form__select,
+.contacto-form__textarea {
+    width: 100%;
+    padding: 12px 16px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--text-dark);
+    background-color: #ffffff;
+    border: 2px solid var(--hp-light);
+    border-radius: 10px;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.contacto-form__input:focus,
+.contacto-form__select:focus,
+.contacto-form__textarea:focus {
+    border-color: var(--hp-blue);
+    box-shadow: 0 0 0 3px rgba(43, 95, 138, 0.1);
+    outline: none;
+}
+
+.contacto-form__input::placeholder,
+.contacto-form__textarea::placeholder {
+    color: var(--text-light);
+}
+
+/* Select con flecha custom */
+.contacto-form__select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666666' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+}
+
+/* Textarea */
+.contacto-form__textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* ── Estado de error en campo ────────────────────────────────── */
+
+.contacto-form__field--error .contacto-form__input,
+.contacto-form__field--error .contacto-form__select,
+.contacto-form__field--error .contacto-form__textarea {
+    border-color: #C0392B;
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.08);
+}
+
+.contacto-form__error-msg {
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    color: #C0392B;
+    font-weight: 500;
+}
+
+/* ── Honeypot (invisible para humanos) ───────────────────────── */
+
+.contacto-form__hp {
+    position: absolute;
+    left: -9999px;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ── Botón de envío ──────────────────────────────────────────── */
+
+.contacto-form__submit {
+    width: 100%;
+    padding: 16px 32px;
+    font-size: 16px;
+    margin-top: 4px;
+}
+
+.contacto-form__submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Spinner dentro del botón durante el envío */
+.contacto-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: contactoSpin 0.6s linear infinite;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+@keyframes contactoSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* ── Nota de tiempo de respuesta ─────────────────────────────── */
+
+.contacto-form__note {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--text-light);
+}
+
+.contacto-form__note svg {
+    flex-shrink: 0;
+    opacity: 0.6;
+}
+
+/* ── Resultado del envío ─────────────────────────────────────── */
+
+.contacto-form__resultado {
+    margin-top: 16px;
+}
+
+.contacto-form__resultado--ok,
+.contacto-form__resultado--error {
+    padding: 16px 20px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.5;
+    animation: fadeSlideUp 0.3s ease;
+}
+
+.contacto-form__resultado--ok {
+    background-color: rgba(26, 122, 74, 0.08);
+    color: #1A7A4A;
+    border: 1px solid rgba(26, 122, 74, 0.2);
+}
+
+.contacto-form__resultado--error {
+    background-color: rgba(192, 57, 43, 0.08);
+    color: #C0392B;
+    border: 1px solid rgba(192, 57, 43, 0.2);
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   SIDEBAR — Datos de contacto
+   ══════════════════════════════════════════════════════════════════ */
+
+.contacto-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Tarjeta de dato de contacto */
+.contacto-dato {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.contacto-dato:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+/* Ícono circular */
+.contacto-dato__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.contacto-dato__icon--green {
+    background-color: rgba(37, 211, 102, 0.1);
+    color: #25D366;
+}
+
+.contacto-dato__icon--blue {
+    background-color: rgba(43, 95, 138, 0.1);
+    color: var(--hp-blue);
+}
+
+.contacto-dato__icon--orange {
+    background-color: rgba(232, 131, 58, 0.1);
+    color: var(--hp-orange);
+}
+
+.contacto-dato__icon--navy {
+    background-color: rgba(27, 58, 92, 0.1);
+    color: var(--hp-dark-blue);
+}
+
+.contacto-dato__text h4 {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+}
+
+.contacto-dato__text a {
+    font-size: 15px;
+    color: var(--hp-blue);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color var(--transition);
+    word-break: break-all;
+}
+
+.contacto-dato__text a:hover {
+    color: var(--hp-orange);
+}
+
+.contacto-dato__text p {
+    font-size: 13px;
+    color: var(--text-light);
+    margin: 4px 0 0;
+    line-height: 1.5;
+}
+
+/* ── Mapa ────────────────────────────────────────────────────── */
+
+.contacto-mapa {
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.contacto-mapa iframe {
+    display: block;
+    width: 100%;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   RESPONSIVE — TABLET (768px+)
+   ══════════════════════════════════════════════════════════════════ */
+
+@media (min-width: 768px) {
+
+    .contacto-hero__title {
+        font-size: 36px;
+    }
+
+    .contacto-hero__description {
+        font-size: 17px;
+    }
+
+    .contacto-form-wrapper {
+        padding: 40px 32px;
+    }
+
+    .contacto-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   RESPONSIVE — DESKTOP (1024px+)
+   ══════════════════════════════════════════════════════════════════ */
+
+@media (min-width: 1024px) {
+
+    .contacto-hero {
+        padding: 60px 0 32px;
+    }
+
+    .contacto-hero__title {
+        font-size: 42px;
+    }
+
+    .contacto-grid {
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 48px;
+    }
+
+    .contacto-form-wrapper {
+        padding: 44px 36px;
+    }
+
+    /* Sidebar sticky: se queda fija mientras el formulario es largo */
+    .contacto-sidebar {
+        position: sticky;
+        top: 100px;
+        align-self: flex-start;
+    }
+
+    .contacto-mapa iframe {
+        height: 260px;
+    }
+}

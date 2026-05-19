@@ -1,0 +1,183 @@
+/*
+ * ═══════════════════════════════════════════════════════════════════
+ * HUMAN PERÚ — CSS complementario del front-page
+ * ═══════════════════════════════════════════════════════════════════
+ *
+ * INSTRUCCIONES: Pegar este bloque en style.css justo ANTES de la
+ * sección "9. SECCIONES ESPECÍFICAS" (o reemplazar esa sección
+ * integrando estos estilos).
+ *
+ * Componentes nuevos:
+ *   - .hero-bar           → Barra decorativa gradiente sobre el hero
+ *   - .intro              → Sección de introducción centrada
+ *   - .two-col            → Layout genérico de 2 columnas (imagen + texto)
+ *   - .section__footer    → Contenedor de botón centrado debajo de grillas
+ */
+
+
+/* ══════════════════════════════════════════════════════════════════
+   HERO BAR — Barra decorativa gradiente
+   ══════════════════════════════════════════════════════════════════
+   Línea de 4px en la parte superior del hero que va de:
+   naranja (#E8833A) → amarillo (#F5B731) → azul (#2B5F8A)
+   Refuerza los colores de marca de forma sutil.
+   ══════════════════════════════════════════════════════════════════ */
+
+.hero-bar {
+    height: 4px;
+    background: linear-gradient(
+        90deg,
+        var(--hp-orange) 0%,
+        var(--hp-yellow) 50%,
+        var(--hp-blue) 100%
+    );
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   INTRODUCCIÓN — Mensaje de bienvenida
+   ══════════════════════════════════════════════════════════════════ */
+
+.intro {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.intro__title {
+    font-family: var(--font-heading);
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--hp-blue);
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+.intro__text {
+    font-size: 16px;
+    color: var(--text-medium);
+    line-height: 1.8;
+}
+
+.intro__text p {
+    color: var(--text-medium);
+    margin-bottom: 16px;
+}
+
+.intro__text p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   TWO-COL — Layout genérico de 2 columnas (imagen + texto)
+   ══════════════════════════════════════════════════════════════════
+   Se usa en la sección de Historia y Visión.
+   En móvil: imagen arriba, texto abajo (1 columna).
+   En desktop: 2 columnas lado a lado (50/50).
+   ══════════════════════════════════════════════════════════════════ */
+
+.two-col {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+}
+
+/* Columna de imagen */
+.two-col__media {
+    width: 100%;
+}
+
+.two-col__img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow-md);
+    object-fit: cover;
+}
+
+/* Columna de texto */
+.two-col__text {
+    width: 100%;
+}
+
+.two-col__text .tag {
+    margin-bottom: 12px;
+}
+
+.two-col__text h2 {
+    margin-bottom: 16px;
+}
+
+.two-col__text p {
+    color: var(--text-medium);
+    line-height: 1.7;
+    margin-bottom: 16px;
+}
+
+.two-col__text .btn-primary,
+.two-col__text .btn-secondary {
+    margin-top: 8px;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   SECTION FOOTER — Botón centrado debajo de grillas
+   ══════════════════════════════════════════════════════════════════ */
+
+.section__footer {
+    text-align: center;
+    margin-top: 40px;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   RESPONSIVE — TABLET (768px+)
+   ══════════════════════════════════════════════════════════════════ */
+
+@media (min-width: 768px) {
+
+    .intro__title {
+        font-size: 32px;
+    }
+
+    .intro__text {
+        font-size: 17px;
+    }
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   RESPONSIVE — DESKTOP (1024px+)
+   ══════════════════════════════════════════════════════════════════ */
+
+@media (min-width: 1024px) {
+
+    .intro__title {
+        font-size: 36px;
+    }
+
+    .intro__text {
+        font-size: 18px;
+    }
+
+    /* Two-col pasa a 2 columnas lado a lado */
+    .two-col {
+        flex-direction: row;
+        gap: 48px;
+    }
+
+    .two-col__media {
+        flex: 0 1 50%;
+    }
+
+    .two-col__text {
+        flex: 0 1 50%;
+    }
+
+    /* Para la imagen máxima del two-col */
+    .two-col__img {
+        max-height: 420px;
+    }
+}
