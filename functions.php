@@ -139,7 +139,16 @@ function humanperu_enqueue_assets() {
     // Solo se cargan en la página de asistencia para no sobrecargar
     // el resto del sitio con datos que no necesitan.
     if ( is_page( 'asistencia' ) ) {
-        wp_localize_script( 'hp-main-js', 'hp_ajax', [
+ 
+        wp_enqueue_script(
+            'hp-attendance-js',
+            get_template_directory_uri() . '/assets/js/attendance.js',
+            [],
+            filemtime( get_stylesheet_directory() . '/assets/js/attendance.js' ),
+            [ 'in_footer' => true, 'strategy' => 'defer' ]
+        );
+ 
+        wp_localize_script( 'hp-attendance-js', 'hp_ajax', [
             'ajax_url' => admin_url( 'admin-ajax.php' ),
             'nonce'    => wp_create_nonce( 'hp_asistencia_nonce' ),
         ] );

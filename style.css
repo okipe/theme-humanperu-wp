@@ -4018,6 +4018,283 @@ body.mobile-menu-open {
 }
 
 /* ══════════════════════════════════════════════════════════════════
+   COOPERACIÓN — Lista de beneficios
+   ══════════════════════════════════════════════════════════════════ */
+
+.benefit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.benefit-item__check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    border-radius: 50%;
+    background-color: rgba(232, 131, 58, 0.12);
+    color: var(--hp-orange);
+    margin-top: 2px;
+}
+
+.benefit-item strong {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--hp-blue);
+    margin-bottom: 2px;
+}
+
+.benefit-item p {
+    font-size: 14px;
+    color: var(--text-medium);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   COOPERACIÓN — Pasos para cooperar
+   ══════════════════════════════════════════════════════════════════ */
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.step-card {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: var(--card-radius);
+    padding: 28px 24px 28px 80px;
+    box-shadow: var(--shadow-md);
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition);
+}
+
+.step-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Número circular grande a la izquierda */
+.step-card__number {
+    position: absolute;
+    left: 20px;
+    top: 24px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 800;
+    color: #ffffff;
+    background-color: var(--hp-orange);
+    border-radius: 12px;
+}
+
+.step-card__title {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--hp-blue);
+    margin-bottom: 6px;
+}
+
+.step-card__text {
+    font-size: 14px;
+    color: var(--text-medium);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   VERIFICAR DIPLOMA — FAQ Accordion
+   ══════════════════════════════════════════════════════════════════
+   Usa el elemento nativo <details>/<summary> de HTML.
+   No requiere JavaScript para abrir/cerrar.
+   ══════════════════════════════════════════════════════════════════ */
+
+.verificar-page__form {
+    max-width: 640px;
+    margin: 0 auto 48px;
+}
+
+.verificar-faq {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.verificar-faq__title {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--hp-blue);
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+/* Cada item del accordion */
+.verificar-faq__item {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: box-shadow var(--transition);
+}
+
+.verificar-faq__item:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.verificar-faq__item[open] {
+    box-shadow: var(--shadow-md);
+}
+
+/* Pregunta (clickeable) */
+.verificar-faq__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 20px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-dark);
+    cursor: pointer;
+    list-style: none; /* Quitar el triángulo nativo de <summary> */
+    transition: color var(--transition);
+}
+
+/* Quitar el marcador nativo en todos los navegadores */
+.verificar-faq__question::-webkit-details-marker {
+    display: none;
+}
+
+.verificar-faq__question::marker {
+    display: none;
+    content: "";
+}
+
+.verificar-faq__question:hover {
+    color: var(--hp-orange);
+}
+
+/* Chevron que rota al abrir */
+.verificar-faq__chevron {
+    flex-shrink: 0;
+    color: var(--text-light);
+    transition: transform var(--transition);
+}
+
+.verificar-faq__item[open] .verificar-faq__chevron {
+    transform: rotate(180deg);
+    color: var(--hp-orange);
+}
+
+/* Respuesta */
+.verificar-faq__answer {
+    padding: 0 20px 18px;
+}
+
+.verificar-faq__answer p {
+    font-size: 15px;
+    color: var(--text-medium);
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   ASISTENCIA — Nota de privacidad
+   ══════════════════════════════════════════════════════════════════ */
+
+.asistencia-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    max-width: 480px;
+    margin: 16px auto 0;
+    font-size: 13px;
+    color: var(--text-light);
+    text-align: center;
+}
+
+.asistencia-note svg {
+    flex-shrink: 0;
+    opacity: 0.5;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   RESPONSIVE — TABLET (768px+)
+   ══════════════════════════════════════════════════════════════════ */
+
+@media (min-width: 768px) {
+    .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+
+    .step-card__title {
+        font-size: 19px;
+    }
+
+    .verificar-faq__question {
+        font-size: 16px;
+        padding: 20px 24px;
+    }
+
+    .verificar-faq__title {
+        font-size: 28px;
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   RESPONSIVE — DESKTOP (1024px+)
+   ══════════════════════════════════════════════════════════════════ */
+
+@media (min-width: 1024px) {
+    .steps-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .step-card {
+        padding: 80px 24px 28px 24px;
+        text-align: center;
+    }
+
+    .step-card__number {
+        left: 50%;
+        transform: translateX(-50%);
+        top: 24px;
+    }
+
+    .benefit-item strong {
+        font-size: 17px;
+    }
+
+    .benefit-item p {
+        font-size: 15px;
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════════
    15. ANIMACIONES
    ══════════════════════════════════════════════════════════════════
    Elementos que aparecen con fade-in al entrar al viewport.
