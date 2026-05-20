@@ -119,7 +119,7 @@ $total   = $wp_query->found_posts;
                                 <a href="<?php the_permalink(); ?>"
                                    class="blog-list__image-link"
                                    aria-hidden="true" tabindex="-1">
-                                    <?php the_post_thumbnail( 'hp-card', [
+                                    <?php the_post_thumbnail( 'large', [
                                         'class'   => 'blog-list__image',
                                         'alt'     => esc_attr( get_the_title() ),
                                         'loading' => 'lazy',
