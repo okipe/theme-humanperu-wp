@@ -626,7 +626,7 @@ function humanperu_enqueue_contacto() {
 
     // Pasar la URL de AJAX al script
     wp_localize_script( 'hp-contact-js', 'hp_contacto', [
-        'ajax_url' => admin_url( 'admin-ajax.php' ),
+        'ajax_url' => home_url( '/?' ),
     ] );
 }
 add_action( 'wp_enqueue_scripts', 'humanperu_enqueue_contacto' );
@@ -786,3 +786,13 @@ function humanperu_ajax_enviar_contacto() {
 //   - front-page.php  → Página de inicio
 //   - template-parts/ → cta-banner.php, press-badge.php
 // ═════════════════════════════════════════════════════════════════
+
+// Endpoint AJAX de contacto vía GET (evita bloqueo mod_security)
+add_action( 'init', function() {
+    if ( isset( $_GET['hp_action'] ) && $_GET['hp_action'] === 'contacto' ) {
+        // Mover los datos de GET a POST para reutilizar el handler existente
+        $_POST = array_merge( $_POST, $_GET );
+        humanperu_ajax_enviar_contacto();
+        exit;
+    }
+});

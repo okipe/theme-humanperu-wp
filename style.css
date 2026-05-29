@@ -2851,6 +2851,12 @@ body.search-open {
 .footer__social-link--x {
     background-color: #14171a;
 }
+.footer__social-link--tiktok {
+    background-color: #010101;
+}
+.footer__social-link--youtube {
+    background-color: #ff0000;
+}
 
 /* Botón de WhatsApp */
 .footer__whatsapp {
