@@ -139,7 +139,7 @@ WordPress selecciona el template en este orden de prioridad:
 | `/nosotros/`                | `page-nosotros.php`    |
 | `/contacto/`                | `page-contacto.php`    |
 | `/cooperacion/`             | `page-cooperacion.php` |
-| `/verificar-diploma/`       | `page-verificar.php`   |
+| `/verificar/`       | `page-verificar.php`   |
 | `/asistencia/`              | `page-asistencia.php`  |
 | `/blog/`                    | `archive.php`          |
 | `/blog/titulo-del-post/`    | `single.php`           |
@@ -451,7 +451,7 @@ Instalar el plugin **Regenerate Thumbnails**, ejecutar, y desinstalar.
 | Contacto          | `contacto`          | Contacto           |
 | Cooperación       | `cooperacion`       | Cooperación        |
 | Blog              | `blog`              | (archivo)          |
-| Verificar diploma | `verificar-diploma` | Verificar Diploma  |
+| Verificar diploma | `verificar` | Verificar Diploma  |
 | Asistencia        | `asistencia`        | Asistencia         |
 
 ### Ajustes críticos

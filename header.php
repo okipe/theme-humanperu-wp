@@ -296,7 +296,7 @@ wp_body_open();
                 <a href="<?php echo esc_url( home_url( '/?s=salud+mental' ) ); ?>">Salud mental</a>
                 <a href="<?php echo esc_url( home_url( '/?s=terapia' ) ); ?>">Terapia</a>
                 <a href="<?php echo esc_url( home_url( '/?s=capacitación' ) ); ?>">Capacitación</a>
-                <a href="<?php echo esc_url( home_url( '/verificar-diploma/' ) ); ?>">Verificar diploma</a>
+                <a href="<?php echo esc_url( home_url( '/verificar/' ) ); ?>">Verificar diploma</a>
             </div>
 
         </form>

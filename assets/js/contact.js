@@ -1,19 +1,19 @@
 /**
  * ═══════════════════════════════════════════════════════════════════
- * HUMAN PERÚ — contact.js
+ * HUMAN PERÚ — contact.js (EmailJS)
  * ═══════════════════════════════════════════════════════════════════
  *
  * Archivo: assets/js/contact.js
  *
- * Maneja el formulario de contacto vía AJAX.
- * Solo se carga en la página de contacto (encolado condicional
- * en functions.php con is_page('contacto')).
+ * Maneja el formulario de contacto vía EmailJS.
+ * Reemplaza el sistema AJAX anterior que era bloqueado por el
+ * firewall mod_security del hosting Yachay.
  *
  * Flujo:
  *   1. Usuario completa los campos y envía el formulario
  *   2. Validación en el cliente (campos requeridos, email válido)
- *   3. Si pasa: enviar petición AJAX al servidor
- *   4. El servidor valida, sanitiza y envía el email con wp_mail()
+ *   3. Si pasa: enviar con emailjs.send()
+ *   4. EmailJS lo reenvía a servicios@humanperu.org.pe vía Gmail
  *   5. Mostrar resultado (éxito o error) en la página
  *
  * @package HumanPeru
@@ -22,13 +22,21 @@
 document.addEventListener("DOMContentLoaded", function () {
     "use strict";
 
+    // ── Credenciales de EmailJS ───────────────────────────────────
+    var EMAILJS_PUBLIC_KEY = "XEMa1KFIjgMpFaEBM";
+    var EMAILJS_SERVICE_ID = "service_9coeehr";
+    var EMAILJS_TEMPLATE_ID = "template_r7lhsvr";
+
+    // Inicializar EmailJS
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+
     var form = document.getElementById("hp-contacto-form");
     var btnSubmit = document.getElementById("hp-contacto-btn");
     var resultado = document.getElementById("hp-contacto-resultado");
 
     if (!form || !btnSubmit) return;
 
-    // ── Textos del botón ──────────────────────────────────────
+    // ── Textos del botón ──────────────────────────────────────────
     var BTN_TEXTO_NORMAL = btnSubmit.innerHTML;
     var BTN_TEXTO_ENVIANDO =
         '<span class="contacto-spinner"></span> Enviando...';
@@ -36,12 +44,21 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        // ── PASO 1: Validación en el cliente ─────────────────
+        // ── PASO 1: Validación en el cliente ──────────────────────
         var nombre = form.querySelector('[name="nombre"]');
         var email = form.querySelector('[name="email"]');
         var asunto = form.querySelector('[name="asunto"]');
         var mensaje = form.querySelector('[name="mensaje"]');
         var honeypot = form.querySelector('[name="website"]');
+
+        // Si el honeypot tiene contenido, es un bot — ignorar silenciosamente
+        if (honeypot && honeypot.value.trim() !== "") {
+            mostrarResultado(
+                "ok",
+                "¡Mensaje enviado correctamente! Nuestro equipo te responderá en un plazo máximo de 24 horas.",
+            );
+            return;
+        }
 
         // Limpiar errores previos
         limpiarErrores();
@@ -86,43 +103,39 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // ── PASO 2: Mostrar estado de carga ──────────────────
+        // ── PASO 2: Mostrar estado de carga ───────────────────────
         bloquearFormulario(true);
         resultado.innerHTML = "";
 
-        // ── PASO 3: Enviar via AJAX ──────────────────────────
-        var formData = new FormData(form);
-        formData.append("action", "hp_enviar_contacto");
+        // ── PASO 3: Obtener teléfono (opcional) ───────────────────
+        var telefonoEl = form.querySelector('[name="telefono"]');
+        var telefono = telefonoEl ? telefonoEl.value.trim() : "";
 
-        // Después — convertir formData a parámetros GET
-        var params = new URLSearchParams(formData);
-        params.append("hp_action", "contacto");
+        // ── PASO 4: Enviar con EmailJS ────────────────────────────
+        var templateParams = {
+            from_name: nombre.value.trim(),
+            email: email.value.trim(),
+            reply_to: email.value.trim(),
+            phone: telefono || "No proporcionado",
+            subject: asunto.value,
+            message: mensaje.value.trim(),
+        };
 
-        fetch(hp_contacto.ajax_url + "&" + params.toString(), {
-            method: "GET",
-        })
-            .then(function (res) {
-                if (!res.ok) throw new Error("Error de red: " + res.status);
-                return res.json();
+        emailjs
+            .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+            .then(function () {
+                mostrarResultado(
+                    "ok",
+                    "¡Mensaje enviado correctamente! Nuestro equipo te responderá en un plazo máximo de 24 horas.",
+                );
+                form.reset();
             })
-            .then(function (data) {
-                if (data.success) {
-                    mostrarResultado("ok", data.data.message);
-                    form.reset();
-                } else {
-                    mostrarResultado(
-                        "error",
-                        data.data.message ||
-                            "Ocurrió un error. Intenta nuevamente.",
-                    );
-                }
-            })
-            .catch(function (err) {
+            .catch(function (error) {
+                console.error("HP Contacto — EmailJS error:", error);
                 mostrarResultado(
                     "error",
-                    "No se pudo conectar con el servidor. Verifica tu conexión e intenta de nuevo.",
+                    "No se pudo enviar el mensaje. Por favor contáctanos directamente a servicios@humanperu.org.pe o por WhatsApp al +51 923 322 521.",
                 );
-                console.error("HP Contacto — Error:", err);
             })
             .finally(function () {
                 bloquearFormulario(false);
@@ -156,7 +169,6 @@ document.addEventListener("DOMContentLoaded", function () {
         var field = campo.closest(".contacto-form__field");
         if (!field) return;
         field.classList.add("contacto-form__field--error");
-        // Agregar mensaje de error debajo del campo
         var msgEl = document.createElement("span");
         msgEl.className = "contacto-form__error-msg";
         msgEl.textContent = mensaje;
@@ -179,7 +191,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function bloquearFormulario(bloqueado) {
         btnSubmit.disabled = bloqueado;
         btnSubmit.innerHTML = bloqueado ? BTN_TEXTO_ENVIANDO : BTN_TEXTO_NORMAL;
-        // Deshabilitar todos los campos durante el envío
         var inputs = form.querySelectorAll("input, select, textarea");
         for (var i = 0; i < inputs.length; i++) {
             inputs[i].disabled = bloqueado;
@@ -203,7 +214,6 @@ document.addEventListener("DOMContentLoaded", function () {
             mensaje +
             "</div>";
 
-        // Scroll suave al resultado para que el usuario lo vea
         resultado.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
 });

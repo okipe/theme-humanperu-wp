@@ -106,7 +106,7 @@ if ( ! is_page( 'contacto' ) ) {
                     <a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>">Blog</a>
                 </li>
                 <li>
-                    <a href="<?php echo esc_url( home_url( '/verificar-diploma/' ) ); ?>">Verificar diploma</a>
+                    <a href="<?php echo esc_url( home_url( '/verificar/' ) ); ?>">Verificar diploma</a>
                 </li>
                 <li>
                     <a href="<?php echo esc_url( home_url( '/asistencia/' ) ); ?>">Asistencia del personal</a>
