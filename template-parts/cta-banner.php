@@ -86,7 +86,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             <span class="cta-banner__contact-sep" aria-hidden="true">|</span>
 
             <!-- Email -->
-            <a href="mailto:mesadepartes@humanperu.org.pe"
+            <a href="mailto:servicios@humanperu.org.pe"
                class="cta-banner__contact-item">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -94,7 +94,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <rect x="2" y="4" width="20" height="16" rx="2"></rect>
                     <path d="M22 7l-10 7L2 7"></path>
                 </svg>
-                mesadepartes@humanperu.org.pe
+                servicios@humanperu.org.pe
             </a>
 
         </div>

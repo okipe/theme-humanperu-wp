@@ -79,7 +79,7 @@ get_header();
                 ],
                 [
                     'q' => '¿Puedo solicitar un duplicado?',
-                    'a' => 'Sí. Envía tu solicitud a mesadepartes@humanperu.org.pe indicando tu nombre completo, número de documento de identidad y el nombre del curso o programa.',
+                    'a' => 'Sí. Envía tu solicitud a servicios@humanperu.org.pe indicando tu nombre completo, número de documento de identidad y el nombre del curso o programa.',
                 ],
             ];
 

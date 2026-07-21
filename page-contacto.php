@@ -225,7 +225,7 @@ get_header();
                         </svg>
                     </div>
                     <div class="contacto-dato__text">
-                        <h4>Correo electrónico</h4>
+                        <h4>Mesa de partes</h4>
                         <a href="mailto:mesadepartes@humanperu.org.pe">
                             mesadepartes@humanperu.org.pe
                         </a>
